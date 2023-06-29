@@ -8,7 +8,7 @@ class Community():
         self._leemus = lemmus
         self._user_communities = defaultdict(dict)
 
-    def get_communities(self, type: str = "Subscribed") -> dict:
+    def getall(self, type: str = "Subscribed") -> dict:
         """Get list of currently subscribed communites"""
         payload = { 
             'type_': type,
@@ -39,7 +39,7 @@ class Community():
         if communities:
             self._user_communities = communities
         else:
-            self.get_communities()
+            self.getall()
 
         payload = {
             'community_id': None,
@@ -50,7 +50,7 @@ class Community():
         for url,cid in self._user_communities.items():
             try: 
                 # resolve community first
-                comm_id = self.resolve_community(url)
+                comm_id = self.resolve(url)
                 
                 if comm_id:
                     payload['community_id'] = comm_id
@@ -62,9 +62,10 @@ class Community():
                     if resp.status_code == 200:
                         self._println(3, f"> Succesfully subscribed to {url} ({comm_id})")
             except Exception as e:
-                print(f"   API error: {e}")
+                print(f"Failed to subscribe {e}")
+                raise
 
-    def resolve_community(self, community: str) -> int | None:
+    def resolve(self, community: str) -> int | None:
         """resolve a community"""
         payload = {
             'q': community,
@@ -72,13 +73,11 @@ class Community():
         }
 
         community_id = None
-        self._println(1, f"> Resolving {community}")
         try:
-            resp = request_it(
-                f"{self._site_url}/{_API_BASE_URL}/resolve_object",
-                params=payload)
+            resp = self._leemus._requestor._req("resolve_object",params=payload)
             community_id = resp.json()['community']['community']['id']
         except Exception as e:
-            self._println(2, f"> Failed to resolve community {e}")
+            print(f"Failed to resolve community {e}")
+            raise
 
         return community_id
