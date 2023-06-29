@@ -1,9 +1,9 @@
-from collections import defaultdict
 from .defaults import _API_BASE_URL
+from .lemmus import Lemmus
 
 class Authenticate():
     
-    def __init__(self, lemmus) -> None:
+    def __init__(self, lemmus: Lemmus) -> None:
         self._lemmus = lemmus
         self.token = None
 
@@ -13,8 +13,8 @@ class Authenticate():
     def _login(self) -> None:
         """authenticate to instance"""
         payload = { 
-            'username_or_email': self._lemmus._username,
-            'password': self._lemmus._password
+            'username_or_email': self._lemmus.username,
+            'password': self._lemmus.password
         }
         
         try:
