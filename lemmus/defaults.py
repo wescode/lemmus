@@ -1,0 +1,2 @@
+_API_VERSION = "v3"
+_API_BASE_URL = f"api/{_API_VERSION}"
