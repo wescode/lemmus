@@ -3,15 +3,15 @@ from .defaults import _API_BASE_URL, _API_VERSION
 
 class Community():
     
-    def __init__(self, leemus):
-        self._leemus = leemus
+    def __init__(self, lemmus):
+        self._lemmus = lemmus
         self._user_communities = defaultdict(dict)
 
     def getall(self, type: str = "Subscribed") -> dict:
         """Get list of currently subscribed communites"""
         payload = { 
             'type_': type,
-            'auth': self._leemus._auth.token,
+            'auth': self._lemmus._auth.token,
             'limit': 50,
             'page': 1
         }
@@ -20,7 +20,7 @@ class Community():
         fetched = 50 #max limit
         while fetched == 50:
             try:
-                resp = self._leemus._requestor._req("community/list", params=payload)
+                resp = self._lemmus._requestor._req("community/list", params=payload)
                 fetched = len(resp.json()['communities'])
                 payload['page'] += 1
 
@@ -43,7 +43,7 @@ class Community():
         payload = {
             'community_id': None,
             'follow': True,
-            'auth': self._leemus._auth._token
+            'auth': self._lemmus._auth._token
         }
 
         for url,cid in self._user_communities.items():
@@ -54,7 +54,7 @@ class Community():
                 if comm_id:
                     payload['community_id'] = comm_id
                     self._println(2, f"> Subscribing to {url} ({comm_id})")
-                    resp = self._leemus._requestor._req(
+                    resp = self._lemmus._requestor._req(
                         "community/follow",
                         json=payload, method='POST')
                     
@@ -73,7 +73,7 @@ class Community():
 
         community_id = None
         try:
-            resp = self._leemus._requestor._req("resolve_object",params=payload)
+            resp = self._lemmus._requestor._req("resolve_object",params=payload)
             community_id = resp.json()['community']['community']['id']
         except Exception as e:
             print(f"Failed to resolve community {e}")

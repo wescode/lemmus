@@ -15,7 +15,7 @@ class Requestor():
         self._rate_limit()
 
         # create full url
-        endpoint = f"{self._lemmus._site_url}/{_API_BASE_URL}/{endpoint}" 
+        endpoint = f"{self._lemmus.site_url}/{_API_BASE_URL}/{endpoint}" 
 
         try:
             r = requests.request(method, url=endpoint, params=params, json=json)
