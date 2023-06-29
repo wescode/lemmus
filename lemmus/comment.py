@@ -1,9 +1,7 @@
 from .defaults import _API_BASE_URL
-from .lemmus import Lemmus
-
 class Comment:
     
-    def __init__(self, lemmus: Lemmus):
+    def __init__(self, lemmus) -> None:
         self._lemmus = lemmus
 
     def get_comments(

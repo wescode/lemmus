@@ -1,11 +1,10 @@
 from collections import defaultdict
 from .defaults import _API_BASE_URL, _API_VERSION
-from .lemmus import Lemmus
 
 class Community():
     
-    def __init__(self, lemmus: Lemmus):
-        self._leemus = lemmus
+    def __init__(self, leemus):
+        self._leemus = leemus
         self._user_communities = defaultdict(dict)
 
     def getall(self, type: str = "Subscribed") -> dict:
