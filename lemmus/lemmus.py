@@ -1,15 +1,12 @@
-import sys
-from collections import defaultdict
-from urllib.parse import urlparse
 from .authenticate import Authenticate
 from .requestor import Requestor
-from .defaults import _API_BASE_URL, _API_VERSION
 from .comment import Comment
 from .community import Community
 
+
 class Lemmus:
     
-    def __init__(self, url, user, passwd) -> None:
+    def __init__(self, url: str, user: str, passwd: str) -> None:
         self.site_url = url
         self.username = user
         self.password = passwd
@@ -25,6 +22,3 @@ class Lemmus:
 
         # community
         self.community = Community(self)
-
-    def _println(self, indent, line):
-        print(f"{' ' * indent}{line}")

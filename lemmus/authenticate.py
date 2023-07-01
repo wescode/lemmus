@@ -1,9 +1,9 @@
-from collections import defaultdict
-from .defaults import _API_BASE_URL
+import lemmus
+
 
 class Authenticate():
     
-    def __init__(self, lemmus) -> None:
+    def __init__(self, lemmus: 'lemmus.Lemmus') -> None:
         self._lemmus = lemmus
         self.token = None
 
@@ -18,8 +18,10 @@ class Authenticate():
         }
         
         try:
-            resp = self._lemmus._requestor._req("user/login", method='POST',
-                                              json=payload)
+            resp = self._lemmus._requestor._req(
+                "user/login",
+                method='POST',
+                json=payload)
             self.token = resp.json()['jwt']
         except Exception as e:
             print(f"Authentication error: {e}")
