@@ -23,9 +23,7 @@ class Requestor():
 
         self._prepare(kwargs)
         try:
-            r = requests.request(
-                method,
-                url=endpoint, **kwargs)
+            r = requests.request(method, url=endpoint, **kwargs)
             r.raise_for_status()
             return r
         except requests.exceptions.HTTPError as e:

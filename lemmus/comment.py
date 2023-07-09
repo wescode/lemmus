@@ -7,7 +7,9 @@ class Comment:
         self._lemmus = lemmus
 
     def get(
-            self, post_id: str, max_depth: int = 1,
+            self,
+            post_id: str,
+            max_depth: int = 1,
             limit: int = 1000) -> dict:
         """Get all comments for a Post"""
 

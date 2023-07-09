@@ -18,14 +18,9 @@ class Authenticate():
         }
         
         try:
-            resp = self._lemmus._requestor._req(
-                "user/login",
-                method='POST',
-                json=payload)
+            resp = self._lemmus._requestor._req("user/login",
+                                                method='POST',
+                                                json=payload)
             self.token = resp.json()['jwt']
         except Exception as e:
             print(f"Authentication error: {e}")
-          #raise Exception(f"Failed to authenticate: {e}")
-          #self._println(1, f"[ERROR]: login() failed for {self._username} on {self._site_url}")
-          #self._println(2, f"-Details: {e}")
-          #sys.exit(1)

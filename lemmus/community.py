@@ -30,9 +30,8 @@ class Community():
         fetched = 50
         while fetched == 50:
             try:
-                r = self._lemmus._requestor._req(
-                    "community/list",
-                    params=payload)
+                r = self._lemmus._requestor._req("community/list",
+                                                 params=payload)
 
                 fetched = len(r.json()['communities'])
                 payload['page'] += 1
@@ -67,9 +66,9 @@ class Community():
                 if comm_id:
                     payload['community_id'] = comm_id
                     self._println(2, f"> Subscribing to {url} ({comm_id})")
-                    r = self._lemmus._requestor._req(
-                        "community/follow",
-                        json=payload, method='POST')
+                    r = self._lemmus._requestor._req("community/follow",
+                                                     json=payload,
+                                                     method='POST')
                     
                     if r.status_code == 200:
                         subscribed.append(url)

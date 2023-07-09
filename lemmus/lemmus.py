@@ -2,6 +2,8 @@ from .authenticate import Authenticate
 from .requestor import Requestor
 from .comment import Comment
 from .community import Community
+from .admin import Admin
+from .user import User
 
 
 class Lemmus:
@@ -22,3 +24,9 @@ class Lemmus:
 
         # community
         self.community = Community(self)
+
+        # admin
+        self.admin = Admin(self)
+
+        # user
+        self.user = User(self)
