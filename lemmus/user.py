@@ -1,4 +1,5 @@
 import lemmus
+from requests import Response
 
 
 class User:
@@ -46,12 +47,29 @@ class User:
     
     def get(
             self,
-            person_id: int,
-            username: str,
-            sort: str,
+            person_id: int = None,
+            username: str = None,
+            sort: str = None,
             page: int = 1,
             limit: int = 50,
-            community_id: int,
-            saved_only: bool) -> None:
+            community_id: int = None,
+            saved_only: bool = None) -> Response:
         """Get a users details"""
 
+        payload = {
+            'person_id': person_id,
+            'username': username,
+            'sort': sort,
+            'page': page,
+            'limit': limit,
+            'community_id': community_id,
+            'saved_only': saved_only
+        }
+        
+        try:
+            r = self._lemmus._requestor._req("user",
+                                             'GET', params=payload)
+            if r.status_code == 200:
+                return r.json()['person_view']['person']
+        except Exception:
+            raise
