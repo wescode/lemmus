@@ -1,11 +1,18 @@
 import lemmus
-from requests import Response
 
 
 class User:
     
     def __init__(self, lemmus: 'lemmus.Lemmus'):
         self._lemmus = lemmus
+        self.id: str = None
+        self.name: str = None
+        self.isbanned: bool = None
+        self.actor_id: str = None
+        self.admin: bool = None
+        self.isbot: bool = None
+        self.deleted: bool = None
+        self.instance_id: int = None
 
     def ban(
             self,
@@ -25,9 +32,8 @@ class User:
         }
 
         try:
-            r = self._lemmus._requestor._req("user/ban",
-                                             'POST', json=payload)
-            if r.status_code == '200':
+            r = self._lemmus._requestor._req("user/ban", 'POST', json=payload)
+            if r.status_code == 200:
                 return r
         except Exception:
             raise
@@ -53,7 +59,7 @@ class User:
             page: int = 1,
             limit: int = 50,
             community_id: int = None,
-            saved_only: bool = None) -> Response:
+            saved_only: bool = None) -> dict:
         """Get a users details"""
 
         payload = {
@@ -67,9 +73,19 @@ class User:
         }
         
         try:
-            r = self._lemmus._requestor._req("user",
-                                             'GET', params=payload)
+            r = self._lemmus._requestor._req("user", 'GET', params=payload)
             if r.status_code == 200:
-                return r.json()['person_view']['person']
-        except Exception:
+                self.id = r.json()['person_viewd']['person']['id']
+                self.name = r.json()['person_view']['person']['name']
+                self.isbanned = r.json()['person_view']['person']['banned']
+                self.actor_id = r.json()['person_view']['person']['actor_id']
+                self.admin = r.json()['person_view']['person']['admin']
+                self.isbot = r.json()['person_view']['person']['bot_account']
+                self.deleted = r.json()['person_view']['person']['deleted']
+                self.instance_id = r.json()['person_view']['person']\
+                    ['instance_id']
+                return r.json()
+        except KeyError as e:
             raise
+        except Exception as e:
+            print(f"Failed to get user details {e}")

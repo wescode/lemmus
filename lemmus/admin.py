@@ -21,7 +21,7 @@ class Admin:
         try:
             r = self._lemmus._requestor._req("admin/purge/person",
                                              'POST', json=payload)
-            if r.status_code == '200':
+            if r.status_code == 200:
                 return r
         except Exception:
             raise
