@@ -6,10 +6,7 @@ class Admin:
     def __init__(self, lemmus: 'lemmus.Lemmus'):
         self._lemmus = lemmus
 
-    def purge_person(
-            self,
-            person_id: int,
-            reason: str) -> None:
+    def purge_person(self, person_id: int, reason: str) -> None:
         """Purge a person"""
     
         payload = {

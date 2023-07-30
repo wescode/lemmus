@@ -14,12 +14,7 @@ class User:
         self.deleted: bool = None
         self.instance_id: int = None
 
-    def ban(
-            self,
-            person_id: int,
-            ban: bool,
-            remove_data: bool,
-            reason: str,
+    def ban(self, person_id: int, ban: bool, remove_data: bool, reason: str,
             expires: int = None) -> None:
         """Ban a user"""
         payload = {
@@ -51,15 +46,9 @@ class User:
         except Exception:
             raise
     
-    def get(
-            self,
-            person_id: int = None,
-            username: str = None,
-            sort: str = None,
-            page: int = 1,
-            limit: int = 50,
-            community_id: int = None,
-            saved_only: bool = None) -> dict:
+    def get(self, person_id: int = None, username: str = None,
+            sort: str = None, page: int = 1, limit: int = 50,
+            community_id: int = None, saved_only: bool = None) -> dict:
         """Get a users details"""
 
         payload = {

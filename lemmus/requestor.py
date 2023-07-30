@@ -10,11 +10,8 @@ class Requestor():
     def __init__(self, lemmus: 'lemmus.Lemmus') -> None:
         self._lemmus = lemmus
     
-    def _req(
-            self,
-            endpoint: str,
-            method: str = 'GET',
-            **kwargs) -> requests.Response:
+    def _req(self, endpoint: str, method: str = 'GET',
+             **kwargs) -> requests.Response:
             
         self._rate_limit()
 

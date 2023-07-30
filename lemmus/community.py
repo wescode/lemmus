@@ -9,13 +9,8 @@ class Community():
         self._lemmus = lemmus
         self._user_communities = defaultdict(dict)
 
-    def list(
-            self,
-            type: ListingType = None,
-            sort: str = None,
-            show_nsfw: bool = None,
-            page: int = 1,
-            limit: int = 50) -> dict:
+    def list(self, type: ListingType = None, sort: str = None,
+             show_nsfw: bool = None, page: int = 1, limit: int = 50) -> dict:
         """Get list of communites"""
         payload = {
             'type_': type,
