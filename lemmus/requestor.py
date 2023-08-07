@@ -5,14 +5,11 @@ import lemmus
 from .defaults import _API_BASE_URL
 
 
-class Requestor():
-    
-    def __init__(self, lemmus: 'lemmus.Lemmus') -> None:
+class Requestor:
+    def __init__(self, lemmus: "lemmus.Lemmus") -> None:
         self._lemmus = lemmus
-    
-    def _req(self, endpoint: str, method: str = 'GET',
-             **kwargs) -> requests.Response:
-            
+
+    def _req(self, endpoint: str, method: str = "GET", **kwargs) -> requests.Response:
         self._rate_limit()
 
         # create full url
@@ -30,7 +27,7 @@ class Requestor():
 
     def _rate_limit(self):
         sleep(1)
-        
+
     def _prepare(self, params: dict) -> None:
         """Remove params/json/data that have no value"""
         if params is None:

@@ -7,7 +7,6 @@ from .user import User
 
 
 class Lemmus:
-    
     def __init__(self, url: str, user: str, passwd: str) -> None:
         self.site_url = url
         self.username = user
@@ -18,7 +17,7 @@ class Lemmus:
 
         # auth and store token
         self._auth = Authenticate(self)
-        
+
         # comment
         self.comment = Comment(self)
 
